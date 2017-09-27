@@ -1,24 +1,17 @@
-.App {
+.dates-component .date {
+  min-width: 1em;
+  min-height: 1em;
+  border-radius: 4px;
+  margin: 2px;
+  padding: 2px;
+  display: inline-block;
+  border: 3px solid dodgerblue;
   text-align: center;
+  color: dodgerblue;
+  cursor: pointer;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.dates-component .date.selected {
+  background-color: dodgerblue;
   color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

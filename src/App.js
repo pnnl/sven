@@ -4,6 +4,7 @@ import {Map, Set} from 'immutable';
 
 import {scaleOrdinal, schemeCategory10} from 'd3-scale';
 import {min, max} from 'd3-array';
+import {timeFormat} from 'd3-time-format';
 
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
@@ -21,6 +22,8 @@ import StorylineChart from './StorylineChart';
 
 import events from './data/events.json';
 import employeesData from './data/employees.json';
+
+import './App.css';
 
 const layout = SvenLayout()
   .time(d => d.hour)
@@ -63,8 +66,30 @@ const PersonSelect = ({data, onChange}) =>
     onChange={onChange}
   />
 
+const fmt = timeFormat('%a');
+const weekdayLetter = d => fmt(new Date(d))[0];
+
+const DatesSelect = ({data, onChange}) =>
+  <div className='dates-component'>
+    { data.keySeq().sort().map(k =>
+        <div
+          key={k}
+          onClick={() => onChange(k, !data.get(k))}
+          className={'date' + (data.get(k) ? ' selected' : '')}
+        >
+          { weekdayLetter(k) }
+        </div>
+      )
+    }
+  </div>
+
+const dates = Map(events.map(d => [d.date, false]));
+
 class App extends Component {
-  state = { people: employees.map(() => false) };
+  state = {
+    people: employees.map(() => false),
+    dates: dates.set(dates.keySeq().sort().first(), true)
+  };
 
   handleEmployeeTypeClick = (k, v) => {
     this.setState({people: this.state.people.merge(v)});
@@ -79,21 +104,26 @@ class App extends Component {
 
   handlePersonClick = values => {
     const selection = Set(values.map(d => d.name));
-    console.log(selection.toJS());
     this.setState({
       people: this.state.people.map((v, k) => selection.has(k))
     });
   }
 
+  handleDateChage = (k, v) => {
+    this.setState({
+      dates: this.state.dates.set(k, v)
+    });
+  }
+
   render() {
-    const {people} = this.state;
+    const {people, dates} = this.state;
 
     const nFiltered = people.valueSeq()
       .reduce((v, sum) => v + sum, 0);
 
     const data = events
       .filter(d => nFiltered === 0 || people.get(d.name))
-      .filter(d => d.date === '2014-01-18 00:00:00');
+      .filter(d => dates.get(d.date));
 
     const storylines = layout(data);
     const ymin = min(storylines.interactions, d => d.y0);
@@ -105,6 +135,7 @@ class App extends Component {
           <Card>
             <CardHeader title='Dates' subheader='click to include data from one or more days'/>
             <CardContent>
+              <DatesSelect data={this.state.dates} onChange={this.handleDateChage}/>
             </CardContent>
           </Card>            
 
@@ -127,9 +158,9 @@ class App extends Component {
           <Paper>
             <StorylineChart
               data={storylines}
-              height={10*(ymax - ymin)}
+              height={10*(ymax - ymin) || 100}
               color={d => color(employeesData[d.values[0].data.name])}
-              lineLabel={d => d.values[0].data.name}
+              lineLabel={d => `${d.values[0].data.name} (${weekdayLetter(d.values[0].data.date)})`}
               groupLabel={d => d.activity}
               onClick={this.handlePersonClick}
             />
