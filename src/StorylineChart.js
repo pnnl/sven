@@ -8,6 +8,7 @@ import './Storyline.css';
 import {scaleLinear} from 'd3-scale';
 import {min, max, merge} from 'd3-array';
 import {line, curveMonotoneX} from 'd3-shape';
+import {axisBottom} from 'd3-axis';
 
 const storylinesInit = ({data={}, width, height, groupLabel}) => {
   let {interactions=[], events=[]} = data;
@@ -129,6 +130,12 @@ const storylineLayers = [
       paths.exit()
         .remove();
     }
+  },
+  {
+    name: 'x-axis',
+    callback: (selection, {data, x}) => {
+      selection.call(axisBottom(x));
+    }
   }      
 ];
 
@@ -137,7 +144,7 @@ const StorylineChart = props =>
     init={storylinesInit}
     layers={storylineLayers}
     {...props}
-    margin={{top: 30, right: 125, bottom: 0, left: 20}}
+    margin={{top: 30, right: 135, bottom: 25, left: 20}}
     className='storylines-chart'
   />;
 
