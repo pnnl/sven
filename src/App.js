@@ -85,6 +85,11 @@ const DatesSelect = ({data, onChange}) =>
 
 const dates = Map(events.map(d => [d.date, false]));
 
+const getLineLabel = d => {
+  const [lastName, firstName=' '] = String(d.values[0].data.name).split(', ');
+  return `${lastName}, ${firstName[0]} (${weekdayLetter(d.values[0].data.date)})`;
+};
+
 class App extends Component {
   state = {
     people: employees.map(() => false),
@@ -160,7 +165,7 @@ class App extends Component {
               data={storylines}
               height={10*(ymax - ymin) || 100}
               color={d => color(employeesData[d.values[0].data.name])}
-              lineLabel={d => `${d.values[0].data.name} (${weekdayLetter(d.values[0].data.date)})`}
+              lineLabel={getLineLabel}
               groupLabel={d => d.activity}
               onClick={this.handlePersonClick}
             />
