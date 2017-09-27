@@ -6,6 +6,15 @@
   stroke-width: 2px;
   stroke: black;
   fill: none;
+  cursor: pointer;
+}
+
+.storylines-chart .storylines g:hover path {
+    stroke-width: 6px;
+}
+
+.storylines-chart .storylines g:hover text {
+    font-weight: bold;
 }
 
 .storylines-chart .storylines text {
