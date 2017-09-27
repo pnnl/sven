@@ -105,7 +105,11 @@ class App extends Component {
 
         <Grid item xs={12} sm={9}>
           <Paper>
-            <StorylineChart data={storylines} height={10*(ymax - ymin)}/>
+            <StorylineChart
+              data={storylines}
+              height={10*(ymax - ymin)}
+              color={d => color(employeesData[d.key])}
+            />
           </Paper>
         </Grid>
 

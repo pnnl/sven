@@ -64,7 +64,7 @@ const storylineLayers = [
   },
   {
     name: 'storylines',
-    callback: (selection, {data, x, y, padding, highlights, onClick=Object}) => {
+    callback: (selection, {data, x, y, color, padding, highlights, onClick=Object}) => {
 
       const line = d3.line()
         .curve(d3.curveMonotoneX);
@@ -101,9 +101,11 @@ const storylineLayers = [
         .classed('highlighted', d => highlights && highlights.has(d.key));
 
       paths_merge.select('path')
+        .style('stroke', d => color && color(d))
         .attr('d', d => line(getPoints(d)));
 
       paths_merge.select('text')
+        .style('fill', d => color && color(d))
         .text(d => d.key)
         .attr('x', d => x(d.values[d.values.length - 1].x) + padding)
         .attr('y', d => y(d.values[d.values.length - 1].y));
@@ -119,7 +121,7 @@ const StorylineChart = props =>
     init={storylinesInit}
     layers={storylineLayers}
     {...props}
-    margin={{top: 30, right: 200, bottom: 0, left: 20}}
+    margin={{top: 30, right: 125, bottom: 0, left: 20}}
     className='storylines-chart'
   />;
 
