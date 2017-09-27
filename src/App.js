@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
-import {Map} from 'immutable';
+import {Map, Set} from 'immutable';
 
 import {scaleOrdinal, schemeCategory10} from 'd3-scale';
 
+import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
@@ -26,46 +27,73 @@ const layout = SvenLayout()
 
 const color = scaleOrdinal(schemeCategory10);
 
-const employees = Map().withMutations(employees =>
-  Map(employeesData).map((v,k) => employees.setIn([v,k], true))
+const employees = Map(employeesData);
+
+const employeesByType = Map().withMutations(map =>
+  employees.map((v,k) => map.setIn([v,k], true))
 );
 
 const EmployeeList = ({data, onClick}) =>
-  <Paper>
-    <List>
-      { data.keySeq().sort().map(k =>
-          <ListItem button dense key={k} onClick={onClick(k, data.get(k))}>
-            <Avatar style={{backgroundColor: color(k)}}>
-              {data.get(k).size}
-            </Avatar>
-            <ListItemText primary={k}/>
-          </ListItem>
-        )
-      }
-    </List>
-  </Paper>
+  <List>
+    { data.keySeq().sort().map(k =>
+        <ListItem button dense key={k} onClick={() => onClick(k, data.get(k))}>
+          <Avatar style={{backgroundColor: color(k)}}>
+            {data.get(k).size}
+          </Avatar>
+          <ListItemText primary={k}/>
+        </ListItem>
+      )
+    }
+  </List>
 
-const PersonSelect = ({data}) =>
-  <div/>
+const asSelectList = map =>
+  map.keySeq()
+    .sort()
+    .map(value => ({value, label: value}))
+    .toArray();
+
+const DELIIMTER = ';';
+
+const PersonSelect = ({data, onChange}) =>
+  <Select simpleValue multi delimiter={DELIIMTER}
+    options={asSelectList(data.filter(v => !v))}
+    value={asSelectList(data.filter(v => v))}
+    onChange={onChange}
+  />
 
 class App extends Component {
-  state = {
-  };
+  state = { people: employees.map(() => false) };
 
-  handleEmployeeClick = k => () => {
+  handleEmployeeTypeClick = (k, v) => {
+    this.setState({people: this.state.people.merge(v)});
+  }
+
+  handlePersonChange = value => {
+    const selection =  Set(value.split(DELIIMTER));
+    this.setState({
+      people: this.state.people.map((_,k) => selection.has(k))
+    });
   }
 
   render() {
-    const {employeeTypeFilter, activitiesFilter} = this.state;
+    const {people} = this.state;
+
+    const nFiltered = people.valueSeq()
+      .reduce((v, sum) => v + sum, 0);
 
     const data = events
-      // .filter(d => employeeTypeFilter.get(employees[d.name]))
+      .filter(d => nFiltered === 0 || people.get(d.name))
       .filter(d => d.date === '2014-01-18 00:00:00');
 
     return (
       <Grid container>
         <Grid item xs={12} sm={3}>
-          <EmployeeList data={employees} onClick={this.handleEmployeeClick}/>
+          <Paper>
+            <EmployeeList data={employeesByType} onClick={this.handleEmployeeTypeClick}/>
+
+            <Typography type='headline'>Filter</Typography>
+            <PersonSelect data={people} onChange={this.handlePersonChange}/>
+          </Paper>
         </Grid>
 
         <Grid item xs={12} sm={9}>
