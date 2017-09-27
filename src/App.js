@@ -11,6 +11,7 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import List, {ListSubheader, ListItem, ListItemText} from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
+import Card, {CardHeader, CardContent} from 'material-ui/Card';
 
 import Select from 'react-select-2';
 import 'react-select-2/dist/css/react-select-2.css';
@@ -95,12 +96,25 @@ class App extends Component {
     return (
       <Grid container>
         <Grid item xs={12} sm={3}>
-          <Paper>
-            <EmployeeList data={employeesByType} onClick={this.handleEmployeeTypeClick}/>
+          <Card>
+            <CardHeader title='Dates' subheader='click to include data from one or more days'/>
+            <CardContent>
+            </CardContent>
+          </Card>            
 
-            <Typography type='headline'>Filter</Typography>
-            <PersonSelect data={people} onChange={this.handlePersonChange}/>
-          </Paper>
+          <Card>
+            <CardHeader title='Legend' subheader='click to add names to filter'/>
+            <CardContent>
+              <EmployeeList data={employeesByType} onClick={this.handleEmployeeTypeClick}/>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader title='Filter by name' subheader='show specific people only'/>
+            <CardContent>
+              <PersonSelect data={people} onChange={this.handlePersonChange}/>
+            </CardContent>
+          </Card>
         </Grid>
 
         <Grid item xs={12} sm={9}>
