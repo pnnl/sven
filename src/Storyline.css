@@ -1,0 +1,14 @@
+.storylines-chart {
+  width: 100%;
+  height: 850px;
+}
+
+.storylines-chart .storylines path {
+  stroke-width: 2px;
+  stroke: black;
+  fill: none;
+}
+
+.storylines-chart .groups rect {
+  fill-opacity: 0.1;
+}
