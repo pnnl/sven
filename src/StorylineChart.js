@@ -54,7 +54,7 @@ const storylineLayers = [
 
       groups.enter()
         .append('rect')
-        .on('click', d => console.log(d) || onClick(d))
+        .on('click', d => onClick(d.values))
         .merge(groups)
           .attr('x', 0)
           .attr('width', width)
@@ -108,7 +108,7 @@ const storylineLayers = [
 
       const paths_enter = paths.enter()
         .append('g')
-          .on('click', onClick);
+          .on('click', d => onClick(d.values.map(d => d.data)));
 
       paths_enter.append('path');
       paths_enter.append('text');

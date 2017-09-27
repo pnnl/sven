@@ -77,6 +77,12 @@ class App extends Component {
     });
   }
 
+  handlePersonClick = values => {
+    this.setState({
+      people: this.state.people.merge(Map(values.map(d => [d.name, true])))
+    });
+  }
+
   render() {
     const {people} = this.state;
 
@@ -91,8 +97,6 @@ class App extends Component {
     const ymin = min(storylines.interactions, d => d.y0);
     const ymax = max(storylines.interactions, d => d.y1);
     
-    console.log();
-
     return (
       <Grid container>
         <Grid item xs={12} sm={3}>
@@ -124,6 +128,7 @@ class App extends Component {
               height={10*(ymax - ymin)}
               color={d => color(employeesData[d.key])}
               groupLabel={d => d.activity}
+              onClick={this.handlePersonClick}
             />
           </Paper>
         </Grid>
