@@ -17,3 +17,7 @@
   fill-opacity: 0.1;
 }
 
+.storylines-chart .groups text {
+    alignment-baseline: text-after-edge;
+}
+

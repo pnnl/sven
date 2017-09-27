@@ -7,7 +7,7 @@ import './Storyline.css';
 
 const d3 = require('d3');
 
-const storylinesInit = ({data={}, width, height}) => {
+const storylinesInit = ({data={}, width, height, groupLabel}) => {
   let {interactions=[], events=[]} = data;
 
   if (interactions.length === 0) {
@@ -32,8 +32,8 @@ const storylinesInit = ({data={}, width, height}) => {
       .domain([ymin, ymax])
       .range([actualHeight - height, -height]);
 
-    const yAxisData = interactions.map(({values, y0, y1}) => ({
-      group: values[0].values[0].data.group,
+    const yAxisData = interactions.map(({values, y0, y1}) => console.log(values) || ({
+      group: groupLabel && groupLabel(values[0].values[0].data),
       y: (y0 + y1)/2,
       y0, y1
     }));
@@ -47,7 +47,7 @@ const storylineLayers = [
     name: 'groups',
     callback: (selection, {yAxisData, width, y, onGroupClick=Object}) => {
       const groups = selection.selectAll('rect')
-          .data(yAxisData, d => d.key);
+          .data(yAxisData, d => d.group);
 
       groups.enter()
         .append('rect')
@@ -59,6 +59,19 @@ const storylineLayers = [
           .attr('height', d => Math.abs(y(d.y1) - y(d.y0)));
 
       groups.exit()
+        .remove();
+
+      const labels = selection.selectAll('text')
+        .data(yAxisData, d => d.group);
+
+      labels.enter()
+        .append('text')
+        .merge(labels)
+          .attr('x', 0)
+          .attr('y', d => y(d.y1))
+          .text(d => d.group);
+
+      labels.exit()
         .remove();
     }
   },

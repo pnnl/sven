@@ -109,6 +109,7 @@ class App extends Component {
               data={storylines}
               height={10*(ymax - ymin)}
               color={d => color(employeesData[d.key])}
+              groupLabel={d => d.activity}
             />
           </Paper>
         </Grid>
