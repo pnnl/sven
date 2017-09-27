@@ -1,6 +1,5 @@
 .storylines-chart {
   width: 100%;
-  height: 850px;
 }
 
 .storylines-chart .storylines path {
@@ -9,6 +8,12 @@
   fill: none;
 }
 
+.storylines-chart .storylines text {
+    font-size: .75em;
+    alignment-baseline: middle;
+}
+
 .storylines-chart .groups rect {
   fill-opacity: 0.1;
 }
+
