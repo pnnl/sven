@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {Map, Set} from 'immutable';
 
 import {scaleOrdinal, schemeCategory10} from 'd3-scale';
+import {min, max} from 'd3-array';
 
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
@@ -85,6 +86,12 @@ class App extends Component {
       .filter(d => nFiltered === 0 || people.get(d.name))
       .filter(d => d.date === '2014-01-18 00:00:00');
 
+    const storylines = layout(data);
+    const ymin = min(storylines.interactions, d => d.y0);
+    const ymax = max(storylines.interactions, d => d.y1);
+    
+    console.log();
+
     return (
       <Grid container>
         <Grid item xs={12} sm={3}>
@@ -98,7 +105,7 @@ class App extends Component {
 
         <Grid item xs={12} sm={9}>
           <Paper>
-            <StorylineChart data={layout(data)}/>
+            <StorylineChart data={storylines} height={10*(ymax - ymin)}/>
           </Paper>
         </Grid>
 
