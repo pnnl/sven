@@ -5,7 +5,9 @@ import ChartComponent from './ReactD3Chart';
 
 import './Storyline.css';
 
-const d3 = require('d3');
+import {scaleLinear} from 'd3-scale';
+import {min, max, merge} from 'd3-array';
+import {line, curveMonotoneX} from 'd3-shape';
 
 const storylinesInit = ({data={}, width, height, groupLabel}) => {
   let {interactions=[], events=[]} = data;
@@ -19,21 +21,22 @@ const storylinesInit = ({data={}, width, height, groupLabel}) => {
 
     const padding = width/xAxisData.length/3;
 
-    const x = d3.scaleLinear()
+    const x = scaleLinear()
       .domain([xAxisData[0] || 0, xAxisData[xAxisData.length - 1] || 1])
       .range([padding, width - padding]);
 
-    const ymax = d3.max(interactions, d => d.y1);
-    const ymin = d3.min(interactions, d => d.y0);
+    const ymax = max(interactions, d => d.y1);
+    const ymin = min(interactions, d => d.y0);
 
     const actualHeight = Math.min(height, (ymax - ymin)*20);
 
-    const y = d3.scaleLinear()
+    const y = scaleLinear()
       .domain([ymin, ymax])
       .range([actualHeight - height, -height]);
 
-    const yAxisData = interactions.map(({values, y0, y1}) => console.log(values) || ({
+    const yAxisData = interactions.map(({values, y0, y1}) => ({
       group: groupLabel && groupLabel(values[0].values[0].data),
+      values: merge(values.map(d => d.values.map(d => d.data))),
       y: (y0 + y1)/2,
       y0, y1
     }));
@@ -45,13 +48,13 @@ const storylinesInit = ({data={}, width, height, groupLabel}) => {
 const storylineLayers = [
   {
     name: 'groups',
-    callback: (selection, {yAxisData, width, y, onGroupClick=Object}) => {
+    callback: (selection, {yAxisData, width, y, onClick=Object}) => {
       const groups = selection.selectAll('rect')
           .data(yAxisData, d => d.group);
 
       groups.enter()
         .append('rect')
-        .on('click', d => onGroupClick(d))
+        .on('click', d => console.log(d) || onClick(d))
         .merge(groups)
           .attr('x', 0)
           .attr('width', width)
@@ -79,8 +82,8 @@ const storylineLayers = [
     name: 'storylines',
     callback: (selection, {data, x, y, color, padding, highlights, onClick=Object}) => {
 
-      const line = d3.line()
-        .curve(d3.curveMonotoneX);
+      const storyline = line()
+        .curve(curveMonotoneX);
 
       function getPoints (d) {
         const points = [];
@@ -115,7 +118,7 @@ const storylineLayers = [
 
       paths_merge.select('path')
         .style('stroke', d => color && color(d))
-        .attr('d', d => line(getPoints(d)));
+        .attr('d', d => storyline(getPoints(d)));
 
       paths_merge.select('text')
         .style('fill', d => color && color(d))
