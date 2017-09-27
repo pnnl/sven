@@ -80,7 +80,7 @@ const storylineLayers = [
   },
   {
     name: 'storylines',
-    callback: (selection, {data, x, y, color, padding, highlights, onClick=Object}) => {
+    callback: (selection, {data, x, y, color, padding, highlights, onClick=Object, lineLabel}) => {
 
       const storyline = line()
         .curve(curveMonotoneX);
@@ -122,7 +122,7 @@ const storylineLayers = [
 
       paths_merge.select('text')
         .style('fill', d => color && color(d))
-        .text(d => d.key)
+        .text(d => lineLabel ? lineLabel(d) : d.key)
         .attr('x', d => x(d.values[d.values.length - 1].x) + padding)
         .attr('y', d => y(d.values[d.values.length - 1].y));
 

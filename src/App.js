@@ -24,7 +24,7 @@ import employeesData from './data/employees.json';
 
 const layout = SvenLayout()
   .time(d => d.hour)
-  .id(d => d.name)
+  .id(d => String([d.name, d.date]))
   .group(d => d.activity);
 
 const color = scaleOrdinal(schemeCategory10);
@@ -126,7 +126,8 @@ class App extends Component {
             <StorylineChart
               data={storylines}
               height={10*(ymax - ymin)}
-              color={d => color(employeesData[d.key])}
+              color={d => color(employeesData[d.values[0].data.name])}
+              lineLabel={d => d.values[0].data.name}
               groupLabel={d => d.activity}
               onClick={this.handlePersonClick}
             />
