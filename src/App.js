@@ -78,8 +78,10 @@ class App extends Component {
   }
 
   handlePersonClick = values => {
+    const selection = Set(values.map(d => d.name));
+    console.log(selection.toJS());
     this.setState({
-      people: this.state.people.merge(Map(values.map(d => [d.name, true])))
+      people: this.state.people.map((v, k) => selection.has(k))
     });
   }
 
