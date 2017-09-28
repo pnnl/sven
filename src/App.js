@@ -41,7 +41,7 @@ const employeesByType = Map().withMutations(map =>
 const EmployeeList = ({data, onClick}) =>
   <List>
     { data.keySeq().sort().map(k =>
-        <ListItem button dense key={k} onClick={() => onClick(k, data.get(k))}>
+        <ListItem button dense key={k} onClick={e => onClick(k, data.get(k), e.shiftKey)}>
           <Avatar style={{backgroundColor: color(k)}}>
             {data.get(k).size}
           </Avatar>
@@ -85,19 +85,18 @@ const DatesSelect = ({data, onChange}) =>
 
 const dates = Map(events.map(d => [d.date, false]));
 
-const getLineLabel = d => {
-  const [lastName, firstName=' '] = String(d.values[0].data.name).split(', ');
-  return `${lastName}, ${firstName[0]} (${weekdayLetter(d.values[0].data.date)})`;
-};
-
 class App extends Component {
   state = {
     people: employees.map(() => false),
     dates: dates.set(dates.keySeq().sort().first(), true)
   };
 
-  handleEmployeeTypeClick = (k, v) => {
-    this.setState({people: this.state.people.merge(v)});
+  handleEmployeeTypeClick = (k, v, append) => {
+    if (append) {
+      this.setState({people: this.state.people.merge(v)});
+    } else {
+      this.setState({people: this.state.people.map((_,k) => v.has(k))});
+    }
   }
 
   handlePersonChange = value => {
@@ -135,6 +134,8 @@ class App extends Component {
     const storylines = layout(data);
     const ymin = min(storylines.interactions, d => d.y0);
     const ymax = max(storylines.interactions, d => d.y1);
+
+    const titleFmt = timeFormat('%a, %b %d');
     
     return (
       <Grid container>
@@ -167,7 +168,8 @@ class App extends Component {
               data={storylines}
               height={10*(ymax - ymin) || 100}
               color={d => color(employeesData[d.values[0].data.name])}
-              lineLabel={getLineLabel}
+              lineLabel={d => d.values[0].data.name}
+              lineTitle={d => titleFmt(new Date(d.values[0].data.date))}
               groupLabel={d => d.activity}
               onClick={this.handlePersonClick}
             />
