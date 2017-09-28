@@ -166,7 +166,7 @@ class App extends Component {
           <Paper>
             <StorylineChart
               data={storylines}
-              height={10*(ymax - ymin) || 100}
+              height={Math.max(10*(ymax - ymin), 50)}
               color={d => color(employeesData[d.values[0].data.name])}
               lineLabel={d => d.values[0].data.name}
               lineTitle={d => titleFmt(new Date(d.values[0].data.date))}
