@@ -70,11 +70,11 @@ const fmt = timeFormat('%a');
 const weekdayLetter = d => fmt(new Date(d))[0];
 
 const DatesSelect = ({data, onChange}) =>
-  <div className='dates-component'>
+  <div className='dates-component noselect'>
     { data.keySeq().sort().map(k =>
         <div
           key={k}
-          onClick={() => onChange(k, !data.get(k))}
+          onClick={e => onChange(k, !data.get(k), e.shiftKey)}
           className={'date' + (data.get(k) ? ' selected' : '')}
         >
           { weekdayLetter(k) }
@@ -114,9 +114,11 @@ class App extends Component {
     });
   }
 
-  handleDateChage = (k, v) => {
+  handleDateChage = (k, v, append) => {
     this.setState({
-      dates: this.state.dates.set(k, v)
+      dates: append
+        ? this.state.dates.set(k, v)
+        : this.state.dates.map((_,k2) => k === k2)
     });
   }
 
