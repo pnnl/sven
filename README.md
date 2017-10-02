@@ -30,7 +30,7 @@ The input format is flexible (see below) but should at a minimum be an array of 
 * The state of the entity. In this case it's "activity" 
 * A time window. In this example it's "hour"
 
-Here's a snippet of the input data from our analysis of the [VAST Challenge 2014 MC2 dataset](http://www.vacommunity.org/VAST+Challenge+2014%3A+Mini-Challenge+2) data.
+Here's a snippet of the input data from our analysis of the [VAST Challenge 2014 MC2](http://www.vacommunity.org/VAST+Challenge+2014%3A+Mini-Challenge+2) dataset.
 
 ```json
 [{'activity': 'Home',
