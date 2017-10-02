@@ -1,6 +1,7 @@
 # What does this do?
 This is demo of storyline visualization applied to a subset of the [VAST Challenge 2014 MC2 dataset](http://www.vacommunity.org/VAST+Challenge+2014%3A+Mini-Challenge+2), that uses our new design guidelines proposed in [1].
-The visualization shows patterns of life 
+The visualization helps explain pattenrs of life by showing when two or more entities have the same state at the same time. Time is encoded on the x-axis and state is encoded on the y-axis.
+
 ![Storyline visualization of patterns of life in the VAST Challenge 2014 MC2 dataset](./sven-demo-screenshot.png)
 
 You can click on days, employment groups to change the filter, which will only show storylines for the given entities. You can shift + click to add names to the filter without replacing the existing set of names. In the visualization, you can also click on an individual storyline to set the filter to that name, or a location to set the filter to all the names passing through that location.
