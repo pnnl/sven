@@ -12,6 +12,13 @@ Try adding a single name to the filter, then add all the weekdays or weekends to
 This demo is powered by `create-react-app`. See `README (create-react-app).md` for detailed instructions. The simple, short way to run the demo is to install node.js and perform the following commands in the project root (where the package.json lives):
 
 ```js
+npm install -g serve
+serve -s build
+```
+
+This repository contains the webpacked producction version of the demo that makes this possible. Alternatively, the demo can be run by getting the development environment working. This has a higher chance of failure, but can be done with the following commands:
+
+```js
 npm install
 npm start
 ```
