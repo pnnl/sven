@@ -75,6 +75,6 @@ import StorylineChart from './StorylineChart';
 
 # References
 1. Arendt, Dustin L. and Meg Pirrung. "The "y" of it matters, Even for Storyline Visualization." _IEEE VAST 2017_. IEEE, 2017.
-1. Balint, J. Timothy, Dustin L. Arendt, and Leslie M. Blaha. "Storyline visualizations of eye tracking of movie viewing." _Eye Tracking and Visualization (ETVIS), IEEE Second Workshop on_. IEEE, 2016.
-1. Volkova, Svitlana, et al. "Contrasting public opinion dynamics and emotional response during crisis." _International Conference on Social Informatics._ Springer International Publishing, 2016.
-1. Arendt, Dustin L., and Leslie M. Blaha. "SVEN: informative visual representation of complex dynamic structure." arXiv preprint arXiv:1412.6706 (2014).
+1. [Balint, J. Timothy, Dustin L. Arendt, and Leslie M. Blaha. "Storyline visualizations of eye tracking of movie viewing." _Eye Tracking and Visualization (ETVIS), IEEE Second Workshop on_. IEEE, 2016. **(best paper)**](http://ieeexplore.ieee.org/abstract/document/7851163/) 
+1. [Volkova, Svitlana, et al. "Contrasting public opinion dynamics and emotional response during crisis." _International Conference on Social Informatics._ Springer International Publishing, 2016.](https://link.springer.com/chapter/10.1007/978-3-319-47880-7_19)
+1. [Arendt, Dustin L., and Leslie M. Blaha. "SVEN: informative visual representation of complex dynamic structure." arXiv preprint arXiv:1412.6706 (2014).](https://arxiv.org/abs/1412.6706)
