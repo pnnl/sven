@@ -33,23 +33,22 @@ The input format is flexible (see below) but should at a minimum be an array of 
 Here's a snippet of the input data from our analysis of the [VAST Challenge 2014 MC2](http://www.vacommunity.org/VAST+Challenge+2014%3A+Mini-Challenge+2) dataset.
 
 ```json
-[{'activity': 'Home',
-  'date': '2014-01-06 00:00:00',
-  'hour': 21,
-  'name': 'Alcazar, Lucas'},
- {'activity': 'GASTech',
-  'date': '2014-01-06 00:00:00',
-  'hour': 11,
-  'name': 'Alcazar, Lucas'},
- {'activity': 'GASTech',
-  'date': '2014-01-06 00:00:00',
-  'hour': 10,
-  'name': 'Alcazar, Lucas'},
- {'activity': 'Dining',
-  'date': '2014-01-06 00:00:00',
-  'hour': 12,
-  'name': 'Alcazar, Lucas'},
-  ...]
+[{"activity": "Home",
+  "date": "2014-01-06 00:00:00",
+  "hour": 21,
+  "name": "Alcazar, Lucas"},
+ {"activity": "GASTech",
+  "date": "2014-01-06 00:00:00",
+  "hour": 11,
+  "name": "Alcazar, Lucas"},
+ {"activity": "GASTech",
+  "date": "2014-01-06 00:00:00",
+  "hour": 10,
+  "name": "Alcazar, Lucas"},
+ {"activity": "Dining",
+  "date": "2014-01-06 00:00:00",
+  "hour": 12,
+  "name": "Alcazar, Lucas"}]
 ```
 ## Layout
 To generate a storyline layout from this data, create a layout object and define the accessor functions as appropraite. In our case we create a unique storyline for each `name x date` pair.
