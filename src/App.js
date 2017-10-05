@@ -44,7 +44,8 @@ import {Map, Set} from 'immutable';
 
 import {scaleOrdinal, schemeCategory10} from 'd3-scale';
 import {min, max} from 'd3-array';
-import {timeFormat} from 'd3-time-format';
+
+import moment from 'moment';
 
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
@@ -106,9 +107,6 @@ const PersonSelect = ({data, onChange}) =>
     onChange={onChange}
   />
 
-const fmt = timeFormat('%a');
-const weekdayLetter = d => fmt(new Date(d))[0];
-
 const DatesSelect = ({data, onChange}) =>
   <div className='dates-component noselect'>
     { data.keySeq().sort().map(k =>
@@ -117,7 +115,7 @@ const DatesSelect = ({data, onChange}) =>
           onClick={e => onChange(k, !data.get(k), e.shiftKey)}
           className={'date' + (data.get(k) ? ' selected' : '')}
         >
-          { weekdayLetter(k) }
+          { moment(k).format('dd') }
         </div>
       )
     }
@@ -174,8 +172,6 @@ class App extends Component {
     const storylines = layout(data);
     const ymin = min(storylines.interactions, d => d.y0);
     const ymax = max(storylines.interactions, d => d.y1);
-
-    const titleFmt = timeFormat('%a, %b %d');
     
     return (
       <Grid container>
@@ -209,7 +205,7 @@ class App extends Component {
               height={Math.max(10*(ymax - ymin), 50)}
               color={d => color(employeesData[d.values[0].data.name])}
               lineLabel={d => d.values[0].data.name}
-              lineTitle={d => titleFmt(new Date(d.values[0].data.date))}
+              lineTitle={d => moment(d.values[0].data.date).format('MMM D YYYY')}
               groupLabel={d => d.activity}
               onClick={this.handlePersonClick}
             />
