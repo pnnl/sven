@@ -43,6 +43,8 @@ import incrementer from '../graph-algorithms/incrementer.js';
 import {seriateByEnergyMinimization as seriate} from '../graph-algorithms/seriation.js';
 import fas from '../graph-algorithms/feedback_arc_set.js';
 
+import {memoize} from 'lodash';
+
 const d3 = require('d3');
 const jsnx = require('jsnetworkx');
 
@@ -200,18 +202,18 @@ export default function () {
     });
   };
 
-  // TODO: memoization of this will help a lot
-  self.getBias = function (u, v, direction) {
-    while ((u[direction] !== u || v[direction] !== v) &&
-            u.y === v.y) {
-      u = u[direction];
-      v = v[direction];
-    }
-
-    return Math.sign(v.y - u.y);
-  }
-
   self.finalEntityOrder = function (trees) {
+
+    const getBias = memoize(function (u, v, direction) {
+
+      if ((u[direction] !== u || v[direction] !== v) &&
+           u.y === v.y) {
+        return getBias(u[direction], v[direction], direction);
+      }
+      
+      return Math.sign(v.y - u.y);
+    });
+
     const G = new jsnx.DiGraph();
     const inc = incrementer(G);
     const key = self.getEventSerializer();
@@ -224,7 +226,7 @@ export default function () {
 
           for (var j = i + 1; j < ary.length; j++) {
             const v = ary[j];
-            const bias = self.getBias(u, v, 'prev') + self.getBias(u, v, 'next');
+            const bias = getBias(u, v, 'prev') + getBias(u, v, 'next');
 
             if (bias !== 0) {
               if (u.first.y > v.first.y) {
