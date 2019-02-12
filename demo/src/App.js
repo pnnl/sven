@@ -47,22 +47,26 @@ import {min, max} from 'd3-array';
 
 import moment from 'moment';
 
-import Typography from 'material-ui/Typography';
-import Avatar from 'material-ui/Avatar';
-import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
-import List, {ListSubheader, ListItem, ListItemText} from 'material-ui/List';
-import Checkbox from 'material-ui/Checkbox';
-import Card, {CardHeader, CardContent} from 'material-ui/Card';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 
 import Select from 'react-select-2';
 import 'react-select-2/dist/css/react-select-2.css';
 
-import SvenLayout from './sven-layout';
-import StorylineChart from './StorylineChart';
-
 import events from './data/events.json';
 import employeesData from './data/employees.json';
+
+import StorylineChart, {SvenLayout} from '../../src';
 
 import './App.css';
 

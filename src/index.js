@@ -1,8 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import React, {Component} from 'react'
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import SvenLayout from './sven-layout/layouts/layered_layout'
+
+import StorylineChart from './StorylineChart'
+
+export {SvenLayout}
+
+export default StorylineChart
