@@ -1,7 +1,7 @@
 {
   "name": "sven-storylines",
   "version": "1.0.0",
-  "description": "sven-storylines React component",
+  "description": "sven-storylines -- storyline layout algorithm and React component",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -36,11 +36,14 @@
     "react-dom": "^16.8.1",
     "react-select-2": "^2.0.11"
   },
-  "author": "",
-  "homepage": "",
-  "license": "MIT",
-  "repository": "",
+  "author": "Dustin Arendt",
+  "homepage": "https://github.com/pnnl/sven",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/pnnl/sven.git"
+  },
   "keywords": [
-    "react-component"
+    "react-component", "storyline visualization"
   ]
 }
