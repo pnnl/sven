@@ -11,7 +11,7 @@ You can click on days or employment groups to change the filter, which will only
 Try adding a single name to the filter, then add all the weekdays or weekends to see how a person's behavior varies subtly. **Be careful that you don't clear the filter with many days selected, this will cause the browser choke while trying to layout too many storylines**.
 
 # Running the Demo
-This demo is powered by `create-react-app`. See `README (create-react-app).md` for detailed instructions. The development environment is started by running the following commands:
+This demo is powered by `nwb react-component`. The development environment is started by running the following commands:
 
 ```js
 npm install
@@ -69,7 +69,21 @@ import StorylineChart from './StorylineChart';
 ```
 
 # References
-1. Arendt, Dustin L. and Meg Pirrung. "The "y" of it matters, Even for Storyline Visualization." _IEEE VAST 2017_. IEEE, 2017.
+1. [Arendt, Dustin L. and Meg Pirrung. "The "y" of it matters, Even for Storyline Visualization." _IEEE VAST 2017_. IEEE, 2017.](https://ieeexplore.ieee.org/abstract/document/8585487)
 1. [Balint, J. Timothy, Dustin L. Arendt, and Leslie M. Blaha. "Storyline visualizations of eye tracking of movie viewing." _Eye Tracking and Visualization (ETVIS), IEEE Second Workshop on_. IEEE, 2016. **(best paper)**](http://ieeexplore.ieee.org/abstract/document/7851163/) 
 1. [Volkova, Svitlana, et al. "Contrasting public opinion dynamics and emotional response during crisis." _International Conference on Social Informatics._ Springer International Publishing, 2016.](https://link.springer.com/chapter/10.1007/978-3-319-47880-7_19)
 1. [Arendt, Dustin L., and Leslie M. Blaha. "SVEN: informative visual representation of complex dynamic structure." arXiv preprint arXiv:1412.6706 (2014).](https://arxiv.org/abs/1412.6706)
+
+# How to Cite
+If your academic research directly uses or is inspired by this work, please cite the following in your publications.
+```
+@inproceedings{arendt2017matters,
+  title={The “y” of it Matters, Even for Storyline Visualization},
+  author={Arendt, Dustin and Pirrung, Meg},
+  booktitle={2017 IEEE Conference on Visual Analytics Science and Technology (VAST)},
+  pages={81--91},
+  year={2017},
+  organization={IEEE}
+}
+```
+
