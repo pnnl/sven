@@ -48,8 +48,7 @@ import {memoize} from 'lodash';
 import {nest, entries} from 'd3-collection'
 import {scan, mean, merge, min} from 'd3-array'
 
-
-const jsnx = require('jsnetworkx');
+import {Graph, DiGraph} from 'jsnetworkx'
 
 export default function () {
   function self(data, previousTrees) {
@@ -137,7 +136,7 @@ export default function () {
 
   self.getGroupTransitionGraph = function (trees) {
     const group = self.group();
-    const G = new jsnx.Graph();
+    const G = new Graph();
     const inc = incrementer(G);
 
     // add a node for each group
@@ -217,7 +216,7 @@ export default function () {
       return Math.sign(v.y - u.y);
     });
 
-    const G = new jsnx.DiGraph();
+    const G = new DiGraph();
     const inc = incrementer(G);
     const key = self.getEventSerializer();
 

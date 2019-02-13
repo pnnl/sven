@@ -44,7 +44,7 @@ import incrementer from './incrementer.js';
 
 import {nest} from 'd3-collection'
 
-const jsnx = require('jsnetworkx');
+import {Graph} from 'jsnetworkx'
 
 export default function () {
   function self(data) {
@@ -53,7 +53,7 @@ export default function () {
     const time = self.time();
 
     // build a graph of group transitions
-    const G = new jsnx.Graph();
+    const G = new Graph();
     const inc = incrementer(G);
 
     nest()
