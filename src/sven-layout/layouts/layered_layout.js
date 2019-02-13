@@ -45,7 +45,10 @@ import fas from '../graph-algorithms/feedback_arc_set.js';
 
 import {memoize} from 'lodash';
 
-const d3 = require('d3');
+import {nest, entries} from 'd3-collection'
+import {scan, mean, merge, min} from 'd3-array'
+
+
 const jsnx = require('jsnetworkx');
 
 export default function () {
@@ -83,14 +86,14 @@ export default function () {
       d.x = time(d.data);
     });
 
-    const interactions = d3.nest()
+    const interactions = nest()
       .key(d => group(d.data))
       .key(d => time(d.data))
       .entries(data);
 
     // use nest to create a id x time data structure
     // this models the storylines
-    const storylines = d3.nest()
+    const storylines = nest()
       .key(d => id(d.data))
       .entries(data);
 
@@ -168,11 +171,11 @@ export default function () {
     }
 
     trees.interactions.forEach(g => {
-      const heights = d3.merge(g.values.map(d => d.values))
+      const heights = merge(g.values.map(d => d.values))
         .map(d => pos.get(key(d.data)));
 
       G.addNode(group(g.values[0].values[0].data), {
-        y: d3.mean(heights.filter(d => d !== undefined)) || -1
+        y: mean(heights.filter(d => d !== undefined)) || -1
       });
     });
   };
@@ -293,13 +296,13 @@ export default function () {
             }
           });
 
-          const ary = d3.entries(offsets);
+          const ary = entries(offsets);
           ary.forEach(d => {
             d.key = Number(d.key);
           });
 
           if (ary.length > 0) {
-            const best = d3.scan(ary, (b, a) => {
+            const best = scan(ary, (b, a) => {
               const av = a.value;
               const bv = b.value;
               if (av < bv) {
@@ -318,7 +321,7 @@ export default function () {
       // find the smallest y value of the interaction (guaranteed <= 0)
       const padding = 5;
       const origin = g.y0 = g.y1 = j > 0 ? 
-        trees.interactions[j - 1].y1 + padding - d3.min(g.values, d => -d.y) : 
+        trees.interactions[j - 1].y1 + padding - min(g.values, d => -d.y) : 
         0;
 
       // finally, find the actual y-coordinates of the storylines

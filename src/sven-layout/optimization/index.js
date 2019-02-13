@@ -40,10 +40,10 @@
 
 import {PriorityQueue} from 'pq2';
 
-const d3 = require('d3');
+import {range} from 'd3-array'
 
 export function getSwapLattice1d (n) {
-  const moves = d3.range(n - 1);
+  const moves = range(n - 1);
   const lattice = moves.map(i => [i - 1, i + 1]);
 
   lattice[0] = [1];

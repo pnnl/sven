@@ -40,7 +40,7 @@
 
 import {getSwapLattice1d, minimizeEnergy} from '../optimization';
 
-const d3 = require('d3');
+import {sum} from 'd3-array'
 
 function byY(u, v) {
   return this.node.get(u).y - this.node.get(v).y;
@@ -74,8 +74,8 @@ export function seriateBySorting(G, nIters) {
 
     for (var v of G) {
       var nei = G.neighbors(v);
-      var mass = d3.sum(nei, edgeWeight.bind(G, v));
-      G.node.get(v).y = 1.0 / mass * d3.sum(nei, scaledEdgeWeight.bind(G, v));
+      var mass = sum(nei, edgeWeight.bind(G, v));
+      G.node.get(v).y = 1.0 / mass * sum(nei, scaledEdgeWeight.bind(G, v));
     }
   }
 }
@@ -137,10 +137,10 @@ export function seriateByEnergyMinimization (G) {
     const nu = neighborData(u);
     const nv = neighborData(v);
 
-    const uAbove = d3.sum(nu, above);
-    const uBelow = d3.sum(nu, below);
-    const vAbove = d3.sum(nv, above);
-    const vBelow = d3.sum(nv, below);
+    const uAbove = sum(nu, above);
+    const uBelow = sum(nu, below);
+    const vAbove = sum(nv, above);
+    const vBelow = sum(nv, below);
 
     return uBelow*vAbove - uAbove*vBelow ||
            uBelow + vAbove - uAbove - vBelow;

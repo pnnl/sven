@@ -41,7 +41,9 @@
 import properties from '../util/properties.js';
 import incrementer from './incrementer.js';
 
-const d3 = require('d3');
+
+import {nest} from 'd3-collection'
+
 const jsnx = require('jsnetworkx');
 
 export default function () {
@@ -54,7 +56,7 @@ export default function () {
     const G = new jsnx.Graph();
     const inc = incrementer(G);
 
-    d3.nest()
+    nest()
       .key(id)
       .rollup(function (leaves) {
         leaves
