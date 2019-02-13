@@ -1,6 +1,6 @@
 {
   "name": "sven-storylines",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "sven-storylines -- storyline layout algorithm and React component",
   "main": "lib/index.js",
   "module": "es/index.js",
