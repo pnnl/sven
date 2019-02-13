@@ -40,10 +40,11 @@
   "homepage": "https://github.com/pnnl/sven",
   "license": "BSD-3-Clause",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/pnnl/sven.git"
+    "type": "git",
+    "url": "https://github.com/pnnl/sven.git"
   },
   "keywords": [
-    "react-component", "storyline visualization"
+    "react-component",
+    "storyline visualization"
   ]
 }
