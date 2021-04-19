@@ -40,6 +40,8 @@
 
 import React from 'react';
 
+import { withSize } from 'react-sizeme'
+
 import {select} from 'd3-selection';
 
 const setupLayers = (selection, layers=[], state) => {
@@ -60,45 +62,42 @@ const setupLayers = (selection, layers=[], state) => {
 
 const noInit = () => null;
 
-class ChartComponent extends React.Component {
-  componentDidMount() {
-    this.componentDidUpdate();
-  }
+function ChartComponent(props) {
+  const {margin={}, init=noInit, size, className, style} = props;
+  const {width, height} = {...size, ...props};
 
-  componentDidUpdate () {
-    const {margin={}, init=noInit} = this.props;
+  const handleRender = svg => {
+    if (svg === undefined) return;
+
     const {top=0, left=0, bottom=0, right=0} = margin;
-    let {width, height} = this.svg.getBoundingClientRect();
 
-    width = width - left - right;
-    height = height - top - bottom;
+    const withDims = {
+      ...props,
+      width: width - left - right,
+      height: height - top - bottom
+    };
 
-    const props = {...this.props, width, height};
-    const state = {...props, ...init(props)};
+    const state = {...withDims, ...init(withDims)};
 
     if (width && height) {
-      select(this.svg)
+      select(svg)
         .select('g.chart')
-          .attr('transform', 'translate(' + [left, height + top] + ')')
+          .attr('transform', 'translate(' + [left, height - bottom] + ')')
           .call(setupLayers, state.layers, state);
     }
   }
 
-  render () {
-    const {width, height, className, style} = this.props;
-    return (
-      <svg
-        width={width}
-        height={height}
-        className={className}
-        style={style}
-        ref={svg => {this.svg = svg;}}
-      >
-        <g className='chart'/>
-      </svg>
-    );
-  }
+  return (
+    <svg
+      className={className}
+      style={{width, height, ...style}}
+      ref={handleRender}
+    >
+      <g className='chart'/>
+    </svg>
+  );
 }
+
 
 ChartComponent.displayName = 'ChartComponent';
 
@@ -106,4 +105,4 @@ ChartComponent.displayName = 'ChartComponent';
 // ChartComponent.propTypes = {};
 // ChartComponent.defaultProps = {};
 
-export default ChartComponent;
+export default withSize()(ChartComponent);

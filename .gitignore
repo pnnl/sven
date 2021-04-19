@@ -1,7 +1,15 @@
-/coverage
-/demo/dist
-/es
-/lib
-/node_modules
-/umd
-npm-debug.log*
+*.egg-info/
+.ipynb_checkpoints/
+dist/
+build/
+*.py[cod]
+node_modules/
+
+# Compiled javascript
+sven/static/
+
+# OS X
+.DS_Store
+es
+lib
+widget/sven/static

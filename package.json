@@ -1,7 +1,6 @@
 {
-  "name": "sven-storylines",
-  "version": "1.0.1",
-  "description": "sven-storylines -- storyline layout algorithm and React component",
+  "name": "sven-widget",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -11,40 +10,45 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component --copy-files",
+    "build": "nwb build-react-component",
+    "build:watch": "nodemon -w src -x 'nwb build-react-component --no-demo'",
     "clean": "nwb clean-module && nwb clean-demo",
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "test:watch": "nwb test-react --server",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": "16.x"
   },
   "dependencies": {
     "d3": "^4.10.0",
     "immutable": "^4.0.0-rc.12",
     "jsnetworkx": "^0.3.4",
     "lodash": "^4.17.4",
-    "pq2": "^0.0.4"
-  },
-  "peerDependencies": {
-    "react": "16.x"
+    "pq2": "^0.0.4",
+    "react-sizeme": "^3.0.1"
   },
   "devDependencies": {
-    "@material-ui/core": "^3.9.2",
-    "moment": "^2.24.0",
+    "@babel/core": "^7.2.2",
+    "@storybook/addon-actions": "^6.2.8",
+    "@storybook/addon-essentials": "^6.2.8",
+    "@storybook/addon-links": "^6.2.8",
+    "@storybook/react": "^6.2.8",
+    "babel-loader": "^8.0.4",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "nodemon": "^2.0.4",
     "nwb": "0.21.x",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-select-2": "^2.0.11"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
-  "author": "Dustin Arendt",
-  "homepage": "https://github.com/pnnl/sven",
-  "license": "BSD-3-Clause",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pnnl/sven.git"
-  },
+  "author": "",
+  "homepage": "",
+  "license": "MIT",
+  "repository": "",
   "keywords": [
-    "react-component",
-    "storyline visualization"
+    "react-component"
   ]
 }
