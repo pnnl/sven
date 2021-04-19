@@ -10,7 +10,10 @@ export default {
 };
 
 export const Default = () =>
-  <StorylineChart {...props}/>
+  <StorylineChart {...props} />
+
+export const WithoutColor = () =>
+  <StorylineChart {...props} color={undefined} />
 
 export const WithWidth = () =>
-  <StorylineChart {...props} width={300}/>
+  <StorylineChart {...props} width={300} />
