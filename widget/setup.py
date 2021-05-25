@@ -152,7 +152,7 @@ setup_args = dict(
     },
     author='Dustin Arendt',
     author_email='dustin.arendt@pnnl.gov',
-    url='https://github.com/PNNL/sven-widget',
+    url='https://github.com/pnnl/sven/tree/jupyter-widget',
     keywords=[
         'ipython',
         'jupyter',
