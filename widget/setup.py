@@ -22,7 +22,7 @@ log.set_verbosity(log.DEBUG)
 log.info('setup.py entered')
 log.info('$PATH=%s' % os.environ['PATH'])
 
-name = 'sven'
+name = 'sven-widget'
 LONG_DESCRIPTION = 'A Jupyter widget for storyline visualizatition'
 
 
